@@ -1,15 +1,25 @@
 #![allow(non_snake_case)]
 pub mod Utility {
-    use anyhow::{Context, Result};
+    use anyhow::{Context, Ok, Result};
+    use once_cell::sync::Lazy;
     use std::io::{BufRead, Write, stdout};
+    use std::sync::Mutex;
 
+    use crate::rlox_libs::ErrorReporting::ErrorStatus;
     use crate::rlox_libs::Scanner::Scanner;
+
+    pub static ERROR_STATUS: Lazy<Mutex<ErrorStatus>> =
+        Lazy::new(|| Mutex::new(ErrorStatus::new()));
 
     pub fn runScript(path: &String) -> Result<()> {
         let s = std::fs::read_to_string(path)
             .with_context(|| format!("Failed to read file: {}", path))?;
 
-        println!("{s}");
+        run(s);
+
+        if (ERROR_STATUS.lock().unwrap().status()) {
+            return Ok(());
+        }
 
         return Ok(());
     }
@@ -29,6 +39,8 @@ pub mod Utility {
                 break;
             }
             run(line.to_string());
+
+            ERROR_STATUS.lock().unwrap().reset();
         }
 
         Ok(())
