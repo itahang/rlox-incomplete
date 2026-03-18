@@ -1,3 +1,4 @@
+#![allow(non_snake_case)]
 use super::Token::Token;
 pub struct Scanner {
     source: String,
