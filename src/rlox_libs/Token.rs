@@ -2,7 +2,6 @@
 
 use std::fmt;
 
-use crate::rlox_libs::TokenTypes;
 
 use super::Literal::Literal;
 use super::TokenTypes::TokensType;
@@ -14,7 +13,6 @@ pub struct Token {
     line: usize,
 }
 
-// public String toString() { return type + " " + lexeme + " " + literal; }
 impl Token {
     pub fn new(t_type: TokensType, lexeme: String, literal: Literal, line: usize) -> Self {
         Self {
@@ -25,10 +23,6 @@ impl Token {
         }
     }
 
-    pub fn addToken(&mut self,t_type:TokensType,literal:Literal){
-
-
-    }
 
     pub fn toString(&self) -> String {
         return format!("{}", self);

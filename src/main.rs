@@ -2,7 +2,7 @@ use anyhow::Result;
 use std::env::args;
 
 pub mod rlox_libs;
-use rlox_libs::Utility::Utility::*;
+use rlox_libs::Utility::*;
 
 fn main() -> Result<()> {
     let arg: Vec<String> = args().collect();

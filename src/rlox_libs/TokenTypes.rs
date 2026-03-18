@@ -2,7 +2,7 @@
 
 use std::fmt;
 
-#[derive(Debug)]
+#[derive(Debug,PartialEq,Clone, Copy)]
 pub enum TokensType {
     // Single-character tokens.
     LEFT_PAREN,

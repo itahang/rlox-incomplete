@@ -18,15 +18,17 @@ impl ErrorStatus {
         self.hadError = false;
     }
 
-    pub fn error(&self, line: u32, message: &str) {
+    pub fn error(&mut self, line: usize, message: &str) {
         Self::report(line, "", message);
+        self.hadError=true;
     }
 
     pub fn status(&self)->bool{
         return self.hadError;
     }
 
-    fn report(line: u32, loc: &str, message: &str) {
+    fn report(line: usize, loc: &str, message: &str) {
         eprintln!("At line: {} {} Error: {}", line, loc, message);
+        
     }
 }
